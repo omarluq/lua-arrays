@@ -88,11 +88,11 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
 
 - `__le(other)`: Define less than or equal to behavior with <= operator.
 
-```lua
-local arr1 = LuvyArray(1, 2, 3)
-local arr2 = LuvyArray(1, 2, 3)
-print(arr1 <= arr2)  -- true
-```
+  ```lua
+  local arr1 = LuvyArray(1, 2, 3)
+  local arr2 = LuvyArray(1, 2, 3)
+  print(arr1 <= arr2)  -- true
+  ```
 
 - `__len()`: Define length behavior with `#` operator.
 
