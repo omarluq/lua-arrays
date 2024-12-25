@@ -438,7 +438,7 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
   print(chunked)  -- {{1, 2}, {3, 4}, {5, 6}}
   ```
 
-- `transpose()`: Convert rows to columns (non-destructive).
+- `transpose()`: Assumes that self is an array of arrays of the same size and convert rows to columns (non-destructive).
 
   ```lua
   local arr = LuvyArray({1, 2, 3}, {4, 5, 6})
@@ -446,7 +446,7 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
   print(transposed)  -- {{1, 4}, {2, 5}, {3, 6}}
   ```
 
-- `transpose_()`: Convert rows to columns (destructive).
+- `transpose_()`: Assumes that self is an array of arrays of the same size and convert rows to columns (destructive).
 
   ```lua
   local arr = LuvyArray({1, 2, 3}, {4, 5, 6})

@@ -475,13 +475,29 @@ function LuvyArray:chunk(predicate)
 	return result
 end
 
--- Convert rows to columns and columns to rows
--- e.g. {{1,2,3}, {4,5,6}} becomes {{1,4}, {2,5}, {3,6}}
--- All sub-arrays must be the same length
-function LuvyArray:transpose() end
+function LuvyArray:transpose()
+	local columns = #self
+	local rows = #self:first()
+	for _, row in ipairs(self.items) do
+		if #row ~= rows then
+			error(string.format("element size differs (%d should be %d)", #row, rows))
+		end
+	end
+	local result = LuvyArray()
+	for i = 1, rows do
+		local arr = LuvyArray()
+		for x = 1, columns do
+			arr:push(self[x][i])
+		end
+		result:push(arr)
+	end
+	return result
+end
 
--- Destructive transpose
-function LuvyArray:transpose_() end
+function LuvyArray:transpose_()
+	self.items = self:transpose().items
+	return self
+end
 
 function LuvyArray:zip(...) end
 
