@@ -110,12 +110,17 @@ function TestRunner.run_tests(tests)
 	local duration = end_time - start_time
 
 	print(string.format("\nTest Summary:"))
+	print(string.format("========================="))
 	print(string.format("Total tests: %d", passed + failed))
 	print(string.format("Total assertions: %d", assert_counts.total))
 	print(string.format("%sPassing tests: %d%s", colors.green, passed, colors.reset))
 	print(string.format("%sPassing assertions: %d%s", colors.green, assert_counts.passed, colors.reset))
-	print(string.format("%sFailing tests: %d%s", colors.red, failed, colors.reset))
-	print(string.format("%sFailing assertions: %d%s", colors.red, assert_counts.failed, colors.reset))
+
+	if failed > 0 or assert_counts.failed > 0 then
+		print(string.format("%sFailing tests: %d%s", colors.red, failed, colors.reset))
+		print(string.format("%sFailing assertions: %d%s", colors.red, assert_counts.failed, colors.reset))
+	end
+
 	print(string.format("Duration: %d seconds", duration))
 
 	-- Exit with failure if any tests failed
