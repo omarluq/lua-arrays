@@ -380,14 +380,29 @@ function LuvyArray:union(other) end
 -- Return new array with elements from other array removed
 function LuvyArray:difference(other) end
 
--- Get range of elements [start_idx, end_idx]
-function LuvyArray:slice(start_idx, end_idx) end
+function LuvyArray:slice(start_idx, end_idx)
+	local result = LuvyArray()
+	for i = start_idx, end_idx do
+		result:push(self[i])
+	end
+	return result
+end
 
--- Get first n elements
-function LuvyArray:take(n) end
+function LuvyArray:take(n)
+	local result = LuvyArray()
+	for i = 1, n do
+		result:push(self[i])
+	end
+	return result
+end
 
--- Skip first n elements
-function LuvyArray:drop(n) end
+function LuvyArray:drop(n)
+	local result = LuvyArray()
+	for i = n + 1, #self do
+		result:push(self[i])
+	end
+	return result
+end
 
 -- Group elements into chunks by predicate
 function LuvyArray:chunk(predicate) end
