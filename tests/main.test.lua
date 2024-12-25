@@ -374,12 +374,12 @@ local tests = {
 		)
 	end,
 
-	test_flatten = function()
+	test__flatten = function()
 		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
 		local flattened = arr:flatten()
 		TestRunner.assert_equal(
 			tostring(flattened),
-			"{1, 2, 3, 4, 5, 6}",
+			"{1, 2, 3, 4, {5, 6}}",
 			"flatten() should recursively flatten nested arrays into a single level"
 		)
 		TestRunner.assert_true(arr ~= flattened, "flatten should return a new array instance, not modify original")
@@ -388,6 +388,27 @@ local tests = {
 	test_flatten_destructive = function()
 		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
 		arr:flatten_()
+		TestRunner.assert_equal(
+			tostring(arr),
+			"{1, 2, 3, 4, {5, 6}}",
+			"flatten_() should modify original array by recursively flattening nested arrays"
+		)
+	end,
+
+	test_deep_flatten = function()
+		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
+		local flattened = arr:deep_flatten()
+		TestRunner.assert_equal(
+			tostring(flattened),
+			"{1, 2, 3, 4, 5, 6}",
+			"flatten() should recursively flatten nested arrays into a single level"
+		)
+		TestRunner.assert_true(arr ~= flattened, "flatten should return a new array instance, not modify original")
+	end,
+
+	test_deep_flatten_destructive = function()
+		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
+		arr:deep_flatten_()
 		TestRunner.assert_equal(
 			tostring(arr),
 			"{1, 2, 3, 4, 5, 6}",

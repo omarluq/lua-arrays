@@ -308,12 +308,11 @@ function LuvyArray:uniq_()
 	self.items = self:uniq().items
 end
 
--- Return new array with all nested arrays flattened
 function LuvyArray:flatten()
 	local result = LuvyArray()
 	self:each(function(v)
 		if getmetatable(v) == LuvyArray then
-			v:flatten():each(function(item)
+			v:each(function(item)
 				result:push(item)
 			end)
 		else
@@ -323,9 +322,27 @@ function LuvyArray:flatten()
 	return result
 end
 
--- Destructive flatten
 function LuvyArray:flatten_()
 	self.items = self:flatten().items
+	return self
+end
+
+function LuvyArray:deep_flatten()
+	local result = LuvyArray()
+	self:each(function(v)
+		if getmetatable(v) == LuvyArray then
+			v:deep_flatten():each(function(item)
+				result:push(item)
+			end)
+		else
+			result:push(v)
+		end
+	end)
+	return result
+end
+
+function LuvyArray:deep_flatten_()
+	self.items = self:deep_flatten().items
 	return self
 end
 
