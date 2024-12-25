@@ -112,7 +112,6 @@ function LuvyArray:__ge(other)
 end
 
 function LuvyArray:__unm()
-	-- TODO: implement reverse lol
 	return self:reverse()
 end
 
@@ -310,10 +309,25 @@ function LuvyArray:uniq_()
 end
 
 -- Return new array with all nested arrays flattened
-function LuvyArray:flatten() end
+function LuvyArray:flatten()
+	local result = LuvyArray()
+	self:each(function(v)
+		if getmetatable(v) == LuvyArray then
+			v:flatten():each(function(item)
+				result:push(item)
+			end)
+		else
+			result:push(v)
+		end
+	end)
+	return result
+end
 
 -- Destructive flatten
-function LuvyArray:flatten_() end
+function LuvyArray:flatten_()
+	self.items = self:flatten().items
+	return self
+end
 
 function LuvyArray:reverse()
 	local result = LuvyArray()

@@ -375,7 +375,7 @@ local tests = {
 	end,
 
 	test_flatten = function()
-		local arr = LuvyArray(1, { 2, 3 }, { 4, { 5, 6 } })
+		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
 		local flattened = arr:flatten()
 		TestRunner.assert_equal(
 			tostring(flattened),
@@ -386,7 +386,7 @@ local tests = {
 	end,
 
 	test_flatten_destructive = function()
-		local arr = LuvyArray(1, { 2, 3 }, { 4, { 5, 6 } })
+		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
 		arr:flatten_()
 		TestRunner.assert_equal(
 			tostring(arr),
