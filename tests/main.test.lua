@@ -105,12 +105,101 @@ local tests = {
 		)
 	end,
 
+	test_add = function()
+		local arr1 = LuvyArray(1, 2, 3)
+		local arr2 = LuvyArray(4, 5, 6)
+		local result = arr1 + arr2
+		TestSuite.assert_equal(tostring(result), "{1, 2, 3, 4, 5, 6}", "Addition should concatenate arrays")
+	end,
+
+	test_subtract = function()
+		local arr1 = LuvyArray(1, 2, 3, 4, 5)
+		local arr2 = LuvyArray(2, 4)
+		local result = arr1 - arr2
+		TestSuite.assert_equal(
+			tostring(result),
+			"{1, 3, 5}",
+			"Subtraction should remove elements present in second array"
+		)
+	end,
+
+	test_equality = function()
+		local arr1 = LuvyArray(1, 2, 3)
+		local arr2 = LuvyArray(1, 2, 3)
+		local arr3 = LuvyArray(1, 2, 3, 4)
+		TestSuite.assert_true(arr1 == arr2, "equality should return true for equal arrays")
+		TestSuite.assert_false(arr1 == arr3, "equality should return false for inequal arrays")
+	end,
+
+	test_multiply = function()
+		local arr = LuvyArray(1, 2, 3)
+		local result = arr * 2
+		TestSuite.assert_equal(tostring(result), "{1, 2, 3, 1, 2, 3}", "Multiplication should repeat array")
+	end,
+
+	test_divide = function()
+		local arr = LuvyArray(1, 2, 3, 4, 5, 6)
+		local result = arr / 2
+		TestSuite.assert_equal(tostring(result), "{{1, 2}, {3, 4}, {5, 6}}", "Division should chunk array")
+	end,
+
+	test_less_than = function()
+		local arr1 = LuvyArray(1, 2, 3)
+		local arr2 = LuvyArray(1, 2, 3, 4)
+		TestSuite.assert_true(arr1 < arr2, "Less than should compare lengths")
+	end,
+
+	test_less_equal = function()
+		local arr1 = LuvyArray(1, 2, 3)
+		local arr2 = LuvyArray(1, 2, 3)
+		local arr3 = LuvyArray(1, 2, 3, 4)
+		TestSuite.assert_true(arr1 <= arr2, "Less than or equal should work for equal arrays")
+		TestSuite.assert_true(arr1 <= arr3, "Less than or equal should work for different length arrays")
+	end,
+
+	test_greater_than = function()
+		local arr1 = LuvyArray(1, 2, 3, 4)
+		local arr2 = LuvyArray(1, 2, 3)
+		TestSuite.assert_true(arr1 > arr2, "Greater than should compare lengths")
+	end,
+
+	test_greater_equal = function()
+		local arr1 = LuvyArray(1, 2, 3)
+		local arr2 = LuvyArray(1, 2, 3)
+		local arr3 = LuvyArray(1, 2, 3, 4)
+		TestSuite.assert_true(arr1 >= arr2, "Greater than or equal should work for equal arrays")
+		TestSuite.assert_true(arr3 >= arr1, "Greater than or equal should work for different length arrays")
+		TestSuite.assert_false(arr1 >= arr3, "Greater then or equal should return false")
+	end,
+
+	test_unary_minus = function()
+		local arr = LuvyArray(1, 2, 3)
+		local result = -arr
+		TestSuite.assert_equal(tostring(result), "{3, 2, 1}", "Unary minus should reverse array")
+	end,
+
+	test_concatenation = function()
+		local arr1 = LuvyArray(1, 2, 3)
+		local arr2 = LuvyArray(4, 5, 6)
+		local result1 = arr1 .. arr2
+		TestSuite.assert_equal(tostring(result1), "{1, 2, 3, 4, 5, 6}", "Concatenation with another array")
+
+		local result2 = arr1 .. 4
+		TestSuite.assert_equal(tostring(result2), "{1, 2, 3, 4}", "Concatenation with a single element")
+	end,
+
 	test_indexing = function()
 		local arr = LuvyArray(10, 20, 30, 40)
 		TestSuite.assert_equal(arr[1], 10, "Positive indexing should work")
 		TestSuite.assert_equal(arr[4], 40, "Positive indexing should work")
 		TestSuite.assert_equal(arr[-1], 40, "Negative indexing should work")
 		TestSuite.assert_equal(arr[-4], 10, "Negative indexing should work")
+	end,
+
+	test_length = function()
+		local arr = LuvyArray(10, 20, 30, 40)
+		TestSuite.assert_equal(arr:length(), 4, "Should return length")
+		TestSuite.assert_equal(#arr, 4, "Works with lua length operator")
 	end,
 
 	test_push_pop = function()

@@ -11,6 +11,96 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
   print(arr)  -- {1, 2, 3}
   ```
 
+- `__add(other)`: Define addition behavior with `+` operator.
+
+  ```lua
+  local arr1 = LuvyArray(1, 2, 3)
+  local arr2 = LuvyArray(4, 5, 6)
+  local result = arr1 + arr2
+  print(result)  -- {1, 2, 3, 4, 5, 6}
+  ```
+
+- `__sub(other)`: Define subtraction behavior with `-` operator.
+
+  ```lua
+  local arr1 = LuvyArray(1, 2, 3, 4, 5)
+  local arr2 = LuvyArray(2, 4)
+  local result = arr1 - arr2
+  print(result)  -- {1, 3, 5}
+  ```
+
+- `__mul(n)`: Define multiplication behavior with `*` operator.
+
+  ```lua
+  local arr = LuvyArray(1, 2, 3)
+  local result = arr * 2
+  print(result)  -- {1, 2, 3, 1, 2, 3}
+  ```
+
+- `__div(n)`: Define division behavior with `/` operator.
+
+  ```lua
+  local arr = LuvyArray(1, 2, 3, 4, 5, 6)
+  local result = arr / 2
+  print(result)  -- {{1, 2}, {3, 4}, {5, 6}}
+  ```
+
+- `__unm()`: Define unary minus behavior with `-` operator.
+
+  ```lua
+  local arr = LuvyArray(1, 2, 3)
+  local result = -arr
+  print(result)  -- {3, 2, 1}
+  ```
+
+- `__concat()`: Define concatenation behavior with `..` operator.
+
+  ```lua
+  local arr1 = LuvyArray(1, 2, 3)
+  local arr2 = LuvyArray(4, 5, 6)
+  local result = arr1 .. arr2
+  print(result)  -- {1, 2, 3, 4, 5, 6}
+  ```
+
+- `__gt(other)`: Define greater than behavior with `>` operator.
+
+  ```lua
+  local arr1 = LuvyArray(1, 2, 3, 4)
+  local arr2 = LuvyArray(1, 2, 3)
+  print(arr1 > arr2)  -- true
+  ```
+
+- `__ge(other)`: Define greater than or equal to behavior with `>=` operator.
+
+  ```lua
+  local arr1 = LuvyArray(1, 2, 3)
+  local arr2 = LuvyArray(1, 2, 3)
+  print(arr1 >= arr2)  -- true
+  ```
+
+- `__lt(other)`: Define less than behavior with `<` operator.
+
+  ```lua
+  local arr1 = LuvyArray(1, 2, 3)
+  local arr2 = LuvyArray(1, 2, 3, 4)
+  print(arr1 < arr2)  -- true
+  ```
+
+- `__le(other)`: Define less than or equal to behavior with <= operator.
+
+```lua
+local arr1 = LuvyArray(1, 2, 3)
+local arr2 = LuvyArray(1, 2, 3)
+print(arr1 <= arr2)  -- true
+```
+
+- `__len()`: Define length behavior with `#` operator.
+
+  ```lua
+  local arr = LuvyArray(1, 2, 3)
+  print(#arr)  -- 3
+  ```
+
 - `length()`: Return the number of elements in the array.
 
   ```lua

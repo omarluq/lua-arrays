@@ -15,7 +15,7 @@ function LuvyArray:__tostring()
 	return "{" .. table.concat(parts, ", ") .. "}"
 end
 
-LuvyArray.__index = function(self, key)
+function LuvyArray:__index(key)
 	if type(key) == "number" then
 		if key < 0 then
 			key = #self.items + key + 1
@@ -26,7 +26,7 @@ LuvyArray.__index = function(self, key)
 	end
 end
 
-LuvyArray.__newindex = function(self, key, value)
+function LuvyArray:__newindex(key, value)
 	if type(key) == "number" then
 		self.items[key] = value
 	else
@@ -34,17 +34,105 @@ LuvyArray.__newindex = function(self, key, value)
 	end
 end
 
-LuvyArray.__eq = function(arr1, arr2)
-	if arr1:length() ~= arr2:length() then
+function LuvyArray:__eq(arr2)
+	if self:length() ~= arr2:length() then
 		return false
 	end
-
-	for i = 1, arr1:length() do
-		if arr1[i] ~= arr2[i] then
+	for i = 1, self:length() do
+		if self[i] ~= arr2[i] then
 			return false
 		end
 	end
 	return true
+end
+
+function LuvyArray:__add(other)
+	local result = LuvyArray.new()
+	for _, v in ipairs(self.items) do
+		result:push(v)
+	end
+	for _, v in ipairs(other.items) do
+		result:push(v)
+	end
+	return result
+end
+
+function LuvyArray:__sub(other)
+	return self:reject(function(x)
+		return other:include(x)
+	end)
+end
+
+function LuvyArray:__mul(n)
+	if type(n) == "number" then
+		local result = LuvyArray.new()
+		for _ = 1, n do
+			for _, v in ipairs(self.items) do
+				result:push(v)
+			end
+		end
+		return result
+	end
+	error("Can only multiply array by a number")
+end
+
+function LuvyArray:__div(n)
+	if type(n) == "number" then
+		local result = LuvyArray.new()
+		local currentChunk = LuvyArray.new()
+		for _, v in ipairs(self.items) do
+			currentChunk:push(v)
+			if currentChunk:length() == n then
+				result:push(currentChunk)
+				currentChunk = LuvyArray.new()
+			end
+		end
+		if currentChunk:length() > 0 then
+			result:push(currentChunk)
+		end
+		return result
+	end
+	error("Can only divide array by a number")
+end
+
+function LuvyArray:__lt(other)
+	return self:length() < other:length()
+end
+
+function LuvyArray:__le(other)
+	return self:length() <= other:length()
+end
+
+function LuvyArray:__gt(other)
+	return self:length() > other:length()
+end
+
+function LuvyArray:__ge(other)
+	return self:length() >= other:length()
+end
+
+function LuvyArray:__unm()
+	-- TODO: implement reverse lol
+	return self:reverse()
+end
+
+function LuvyArray:__concat(other)
+	local result = LuvyArray.new()
+	for _, v in ipairs(self.items) do
+		result:push(v)
+	end
+	if type(other) == "table" and other.items then
+		for _, v in ipairs(other.items) do
+			result:push(v)
+		end
+	else
+		result:push(other)
+	end
+	return result
+end
+
+function LuvyArray:__len()
+	return self:length()
 end
 
 function LuvyArray:push(item)
