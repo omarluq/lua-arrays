@@ -305,7 +305,6 @@ function LuvyArray:uniq()
 	return result
 end
 
--- Destructive uniq
 function LuvyArray:uniq_()
 	self.items = self:uniq().items
 end
@@ -316,11 +315,17 @@ function LuvyArray:flatten() end
 -- Destructive flatten
 function LuvyArray:flatten_() end
 
--- Return new array in reverse order
-function LuvyArray:reverse() end
+function LuvyArray:reverse()
+	result = LuvyArray()
+	self:each(function(v)
+		result:unshift(v)
+	end)
+	return result
+end
 
--- Destructive reverse
-function LuvyArray:reverse_() end
+function LuvyArray:reverse_()
+	self.items = self:reverse().items
+end
 
 -- Return new sorted array
 function LuvyArray:sort(comparison_func) end
