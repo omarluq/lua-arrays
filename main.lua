@@ -316,7 +316,7 @@ function LuvyArray:flatten() end
 function LuvyArray:flatten_() end
 
 function LuvyArray:reverse()
-	result = LuvyArray()
+	local result = LuvyArray()
 	self:each(function(v)
 		result:unshift(v)
 	end)
@@ -328,7 +328,7 @@ function LuvyArray:reverse_()
 end
 
 -- Return new sorted array
-function LuvyArray:sort(comparison_func) end
+function LuvyArray:sort(predicate) end
 
 -- Destructive sort
 function LuvyArray:sort_() end
