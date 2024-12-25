@@ -364,8 +364,15 @@ function LuvyArray:sort(predicate) end
 -- Destructive sort
 function LuvyArray:sort_() end
 
--- Return new array with elements common to another array
-function LuvyArray:intersection(other) end
+function LuvyArray:intersection(other)
+	local result = LuvyArray()
+	self:each(function(v)
+		if other:include(v) then
+			result:push(v)
+		end
+	end)
+	return result
+end
 
 -- Return new array combining unique elements from both arrays
 function LuvyArray:union(other) end
