@@ -332,7 +332,23 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
   print(arr)  -- {1, 2, 3, 4}
   ```
 
-- `flatten()`: Remove nested array structures (non-destructive).
+- `flatten()`: Remove nested array structures one level deep (non-destructive).
+
+  ```lua
+  local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
+  local flattened = arr:flatten()
+  print(flattened)  -- {1, 2, 3, 4, {5, 6}}
+  ```
+
+- `flatten_()`: Remove nested array structures one level deep (destructive).
+
+  ```lua
+  local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
+  arr:flatten_()
+  print(arr)  -- {1, 2, 3, 4, {5, 6}}
+  ```
+
+- `deep_flatten()`: Recursively flattens all nested arrays (non-destructive).
 
   ```lua
   local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
@@ -340,7 +356,7 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
   print(flattened)  -- {1, 2, 3, 4, 5, 6}
   ```
 
-- `flatten_()`: Remove nested array structures (destructive).
+- `deep_flatten_()`: Recursively flattens all nested arrays (destructive).
 
   ```lua
   local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
