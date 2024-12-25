@@ -18,8 +18,5 @@ jobs:
         with:
           luaVersion: "5.4"
 
-      - name: Where am I?
-        run: ls
-
       - name: Run test suite
-        run: lua tests/main.tests.lua
+        run: lua tests/main.test.lua
