@@ -332,27 +332,6 @@ local tests = {
 		)
 	end,
 
-	test_compact = function()
-		local arr = LuvyArray(1, nil, 2, nil, 3)
-		local compacted = arr:compact()
-		TestRunner.assert_equal(
-			tostring(compacted),
-			"{1, 2, 3}",
-			"compact() should remove all nil values from [1,nil,2,nil,3]"
-		)
-		TestRunner.assert_true(arr ~= compacted, "compact should return a new array instance, not modify original")
-	end,
-
-	test_compact_destructive = function()
-		local arr = LuvyArray(1, nil, 2, nil, 3)
-		arr:compact_()
-		TestRunner.assert_equal(
-			tostring(arr),
-			"{1, 2, 3}",
-			"compact_() should modify original array by removing all nil values"
-		)
-	end,
-
 	test_uniq = function()
 		local arr = LuvyArray(1, 2, 2, 3, 3, 4)
 		local unique = arr:uniq()

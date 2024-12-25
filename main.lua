@@ -282,18 +282,6 @@ function LuvyArray:count(predicate)
 	return self:select(predicate):length()
 end
 
-function LuvyArray:compact()
-	return self:reject(function(v)
-		return v == nil
-	end)
-end
-
-function LuvyArray:compact_()
-	return self:reject_(function(v)
-		return v == nil
-	end)
-end
-
 function LuvyArray:uniq()
 	local result = LuvyArray()
 	self:each(function(v)
@@ -358,11 +346,48 @@ function LuvyArray:reverse_()
 	self.items = self:reverse().items
 end
 
--- Return new sorted array
-function LuvyArray:sort(predicate) end
+function LuvyArray:sort(predicate)
+	local function default_predicate(a, b)
+		return a < b
+	end
 
--- Destructive sort
-function LuvyArray:sort_() end
+	local function quicksort(arr, left, right, compare)
+		if left >= right then
+			return
+		end
+
+		local pivot_idx = math.floor((left + right) / 2)
+		local pivot = arr[pivot_idx]
+
+		arr[pivot_idx], arr[right] = arr[right], arr[pivot_idx]
+
+		local partition = left
+		for i = left, right - 1 do
+			if compare(arr[i], pivot) then
+				arr[i], arr[partition] = arr[partition], arr[i]
+				partition = partition + 1
+			end
+		end
+
+		arr[right], arr[partition] = arr[partition], arr[right]
+
+		quicksort(arr, left, partition - 1, compare)
+		quicksort(arr, partition + 1, right, compare)
+	end
+
+	local result = LuvyArray()
+	self:each(function(v)
+		result:push(v)
+	end)
+
+	quicksort(result.items, 1, result:length(), predicate or default_predicate)
+	return result
+end
+
+function LuvyArray:sort_()
+	self.items = self:sort().items
+	return self
+end
 
 function LuvyArray:intersection(other)
 	local result = LuvyArray()

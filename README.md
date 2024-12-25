@@ -299,23 +299,6 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
   print(arr:count(function(x) return x == 2 end))  -- 3
   ```
 
-- `compact()`: Create a new array removing nil values.
-
-  ```lua
-  local arr = LuvyArray(1, nil, 2, nil, 3)
-  local compacted = arr:compact()
-  print(compacted)  -- {1, 2, 3}
-  print(arr)        -- {1, nil, 2, nil, 3} (original unchanged)
-  ```
-
-- `compact_()`: Remove nil values from the original array.
-
-  ```lua
-  local arr = LuvyArray(1, nil, 2, nil, 3)
-  arr:compact_()
-  print(arr)  -- {1, 2, 3}
-  ```
-
 - `uniq()`: Remove duplicate elements from the array (non-destructive).
 
   ```lua
