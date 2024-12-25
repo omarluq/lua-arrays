@@ -375,10 +375,7 @@ function LuvyArray:sort(predicate)
 		quicksort(arr, partition + 1, right, compare)
 	end
 
-	local result = LuvyArray()
-	self:each(function(v)
-		result:push(v)
-	end)
+	local result = LuvyArray(table.unpack(self.items))
 
 	quicksort(result.items, 1, result:length(), predicate or default_predicate)
 	return result
@@ -399,11 +396,29 @@ function LuvyArray:intersection(other)
 	return result
 end
 
--- Return new array combining unique elements from both arrays
-function LuvyArray:union(other) end
+function LuvyArray:union(other)
+	local result = LuvyArray(table.unpack(self.items))
 
--- Return new array with elements from other array removed
-function LuvyArray:difference(other) end
+	other:each(function(v)
+		if not result:include(v) then
+			result:push(v)
+		end
+	end)
+
+	return result
+end
+
+function LuvyArray:difference(other)
+	local result = LuvyArray()
+
+	self:each(function(v)
+		if not other:include(v) then
+			result:push(v)
+		end
+	end)
+
+	return result
+end
 
 function LuvyArray:slice(start_idx, end_idx)
 	local result = LuvyArray()
