@@ -20,5 +20,4 @@ jobs:
 
       - name: Run test suite
         run: |
-          cd ${{ github.workspace }}
           lua tests/main.tests.lua
