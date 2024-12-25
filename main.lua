@@ -295,11 +295,20 @@ function LuvyArray:compact_()
 	end)
 end
 
--- Return new array with duplicates removed
-function LuvyArray:uniq() end
+function LuvyArray:uniq()
+	local result = LuvyArray()
+	self:each(function(v)
+		if not result:include(v) then
+			result:push(v)
+		end
+	end)
+	return result
+end
 
 -- Destructive uniq
-function LuvyArray:uniq_() end
+function LuvyArray:uniq_()
+	self.items = self:uniq().items
+end
 
 -- Return new array with all nested arrays flattened
 function LuvyArray:flatten() end
