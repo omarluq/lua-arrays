@@ -516,6 +516,40 @@ local tests = {
 			"{{1, 2}, {3, 4}, {5, 6}}",
 			"chunk(2) should group elements into arrays of size 2"
 		)
+
+		local arr2 = LuvyArray(1, 2, 3, 4, 5)
+		local chunked2 = arr2:chunk(2)
+		TestRunner.assert_equal(
+			tostring(chunked2),
+			"{{1, 2}, {3, 4}, {5}}",
+			"chunk(2) with uneven array should create a smaller last chunk"
+		)
+
+		local arr3 = LuvyArray(1, 2, 3)
+		local chunked3 = arr3:chunk(5)
+		TestRunner.assert_equal(
+			tostring(chunked3),
+			"{{1, 2, 3}}",
+			"chunk(5) on smaller array should return single chunk with all elements"
+		)
+
+		local arr4 = LuvyArray(1, 2, 3)
+		local chunked4 = arr4:chunk(1)
+		TestRunner.assert_equal(tostring(chunked4), "{{1}, {2}, {3}}", "chunk(1) should create single-element chunks")
+
+		local arr5 = LuvyArray(1, 2, 3, 5, 6, 9, 10)
+		local chunked5 = arr5:chunk(function(last, current)
+			return math.abs(last - current) < 2
+		end)
+		TestRunner.assert_equal(
+			tostring(chunked5),
+			"{{1, 2, 3}, {5, 6}, {9, 10}}",
+			"predicate-based chunk should group by custom condition"
+		)
+
+		local arr6 = LuvyArray()
+		local chunked6 = arr6:chunk(2)
+		TestRunner.assert_equal(tostring(chunked6), "{}", "chunk on empty array should return empty array")
 	end,
 
 	test_transpose = function()

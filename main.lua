@@ -444,8 +444,36 @@ function LuvyArray:drop(n)
 	return result
 end
 
--- Group elements into chunks by predicate
-function LuvyArray:chunk(predicate) end
+function LuvyArray:chunk(predicate)
+	if type(predicate) == "number" then
+		return self / predicate
+	end
+
+	local result = LuvyArray()
+	local current_chunk = LuvyArray()
+
+	self:each(function(v)
+		if current_chunk:empty() then
+			current_chunk:push(v)
+			return
+		end
+
+		local should_group = predicate(current_chunk:last(), v)
+
+		if should_group then
+			current_chunk:push(v)
+		else
+			result:push(current_chunk)
+			current_chunk = LuvyArray(v)
+		end
+	end)
+
+	if not current_chunk:empty() then
+		result:push(current_chunk)
+	end
+
+	return result
+end
 
 -- Convert rows to columns and columns to rows
 -- e.g. {{1,2,3}, {4,5,6}} becomes {{1,4}, {2,5}, {3,6}}
@@ -454,6 +482,8 @@ function LuvyArray:transpose() end
 
 -- Destructive transpose
 function LuvyArray:transpose_() end
+
+function LuvyArray:zip(...) end
 
 setmetatable(LuvyArray, {
 	__call = function(self, ...)
