@@ -47,7 +47,7 @@ function LuvyArray:__eq(arr2)
 end
 
 function LuvyArray:__add(other)
-	local result = LuvyArray.new()
+	local result = LuvyArray()
 	for _, v in ipairs(self.items) do
 		result:push(v)
 	end
@@ -65,7 +65,7 @@ end
 
 function LuvyArray:__mul(n)
 	if type(n) == "number" then
-		local result = LuvyArray.new()
+		local result = LuvyArray()
 		for _ = 1, n do
 			for _, v in ipairs(self.items) do
 				result:push(v)
@@ -78,13 +78,13 @@ end
 
 function LuvyArray:__div(n)
 	if type(n) == "number" then
-		local result = LuvyArray.new()
-		local currentChunk = LuvyArray.new()
+		local result = LuvyArray()
+		local currentChunk = LuvyArray()
 		for _, v in ipairs(self.items) do
 			currentChunk:push(v)
 			if currentChunk:length() == n then
 				result:push(currentChunk)
-				currentChunk = LuvyArray.new()
+				currentChunk = LuvyArray()
 			end
 		end
 		if currentChunk:length() > 0 then
@@ -116,7 +116,7 @@ function LuvyArray:__unm()
 end
 
 function LuvyArray:__concat(other)
-	local result = LuvyArray.new()
+	local result = LuvyArray()
 	for _, v in ipairs(self.items) do
 		result:push(v)
 	end
@@ -177,7 +177,7 @@ function LuvyArray:each(predicate)
 end
 
 function LuvyArray:map(predicate)
-	local result = LuvyArray.new()
+	local result = LuvyArray()
 	self:each(function(v)
 		result:push(predicate(v))
 	end)
@@ -190,7 +190,7 @@ function LuvyArray:map_(predicate)
 end
 
 function LuvyArray:select(predicate)
-	local result = LuvyArray.new()
+	local result = LuvyArray()
 	self:each(function(v)
 		if predicate(v) then
 			result:push(v)
@@ -205,7 +205,7 @@ function LuvyArray:select_(predicate)
 end
 
 function LuvyArray:reject(predicate)
-	local result = LuvyArray.new()
+	local result = LuvyArray()
 	self:each(function(v)
 		if not (predicate(v)) then
 			result:push(v)
