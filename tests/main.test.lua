@@ -572,6 +572,7 @@ local tests = {
 			"transpose_() should modify original array by converting rows to columns"
 		)
 	end,
+
 	test_zip = function()
 		local a = LuvyArray(4, 5, 6)
 		local b = LuvyArray(7, 8, 9)
@@ -596,6 +597,36 @@ local tests = {
 		local empty2 = LuvyArray()
 		local zipped5 = empty1:zip(empty2)
 		TestRunner.assert_equal(tostring(zipped5), "{}", "Zip with empty arrays")
+	end,
+
+	test_method_chaining = function()
+		local arr = LuvyArray(1, 2, 3)
+		local result = arr:push(4)
+			:push(5)
+			:map_(function(x)
+				return x * 2
+			end)
+			:reject_(function(x)
+				return x > 6
+			end)
+			:reverse_()
+
+		TestRunner.assert_equal(tostring(result), "{6, 4, 2}", "Method chaining should work correctly")
+		TestRunner.assert_true(arr == result, "Chaining should maintain the same array instance")
+	end,
+
+	test_pop_shift_chaining = function()
+		local arr = LuvyArray(1, 2, 3, 4)
+		local last, chainArr = arr:pop()
+		TestRunner.assert_equal(last, 4, "Pop should return the last element")
+		TestRunner.assert_true(arr == chainArr, "Pop should return the array for chaining")
+
+		local first, chainArr2 = chainArr:shift()
+		TestRunner.assert_equal(first, 1, "Shift should return the first element")
+		TestRunner.assert_true(chainArr == chainArr2, "Shift should return the array for chaining")
+
+		chainArr2:push(5):push(6)
+		TestRunner.assert_equal(tostring(chainArr2), "{2, 3, 5, 6}", "Chaining should work after pop/shift")
 	end,
 }
 

@@ -136,18 +136,20 @@ end
 
 function LuvyArray:push(item)
 	table.insert(self.items, item)
+	return self
 end
 
 function LuvyArray:pop()
-	return table.remove(self.items)
+	return table.remove(self.items), self
 end
 
 function LuvyArray:shift()
-	return table.remove(self.items, 1)
+	return table.remove(self.items, 1), self
 end
 
 function LuvyArray:unshift(item)
 	table.insert(self.items, 1, item)
+	return self
 end
 
 function LuvyArray:length()
@@ -294,6 +296,7 @@ end
 
 function LuvyArray:uniq_()
 	self.items = self:uniq().items
+	return self
 end
 
 function LuvyArray:flatten()
@@ -344,6 +347,7 @@ end
 
 function LuvyArray:reverse_()
 	self.items = self:reverse().items
+	return self
 end
 
 function LuvyArray:sort(predicate)
