@@ -221,11 +221,11 @@ function LuvyArray:reject_(predicate)
 	return self
 end
 
-function LuvyArray:reduce(accumaltor, predicate)
+function LuvyArray:reduce(accumulator, predicate)
 	self:each(function(v)
-		accumaltor = predicate(accumaltor, v)
+		accumulator = predicate(accumulator, v)
 	end)
-	return accumaltor
+	return accumulator
 end
 
 function LuvyArray:join(separator)
