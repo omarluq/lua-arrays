@@ -1,9 +1,9 @@
-local LuvyArray = require("main")
+local Luvy = require("main")
 local TestRunner = require("tests.test_runner")
 
 local tests = {
 	test_constructor = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		TestRunner.assert_equal(arr:length(), 3, "Constructor should initialize array with exactly 3 elements")
 		TestRunner.assert_equal(
 			tostring(arr),
@@ -13,8 +13,8 @@ local tests = {
 	end,
 
 	test_add = function()
-		local arr1 = LuvyArray(1, 2, 3)
-		local arr2 = LuvyArray(4, 5, 6)
+		local arr1 = Luvy.Array(1, 2, 3)
+		local arr2 = Luvy.Array(4, 5, 6)
 		local result = arr1 + arr2
 		TestRunner.assert_equal(
 			tostring(result),
@@ -24,8 +24,8 @@ local tests = {
 	end,
 
 	test_subtract = function()
-		local arr1 = LuvyArray(1, 2, 3, 4, 5)
-		local arr2 = LuvyArray(2, 4)
+		local arr1 = Luvy.Array(1, 2, 3, 4, 5)
+		local arr2 = Luvy.Array(2, 4)
 		local result = arr1 - arr2
 		TestRunner.assert_equal(
 			tostring(result),
@@ -35,9 +35,9 @@ local tests = {
 	end,
 
 	test_equality = function()
-		local arr1 = LuvyArray(1, 2, 3)
-		local arr2 = LuvyArray(1, 2, 3)
-		local arr3 = LuvyArray(1, 2, 3, 4)
+		local arr1 = Luvy.Array(1, 2, 3)
+		local arr2 = Luvy.Array(1, 2, 3)
+		local arr3 = Luvy.Array(1, 2, 3, 4)
 		TestRunner.assert_true(arr1 == arr2, "Arrays with identical elements [1,2,3] should be considered equal")
 		TestRunner.assert_false(
 			arr1 == arr3,
@@ -46,7 +46,7 @@ local tests = {
 	end,
 
 	test_multiply = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		local result = arr * 2
 		TestRunner.assert_equal(
 			tostring(result),
@@ -56,7 +56,7 @@ local tests = {
 	end,
 
 	test_divide = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5, 6)
+		local arr = Luvy.Array(1, 2, 3, 4, 5, 6)
 		local result = arr / 2
 		TestRunner.assert_equal(
 			tostring(result),
@@ -66,29 +66,29 @@ local tests = {
 	end,
 
 	test_less_than = function()
-		local arr1 = LuvyArray(1, 2, 3)
-		local arr2 = LuvyArray(1, 2, 3, 4)
+		local arr1 = Luvy.Array(1, 2, 3)
+		local arr2 = Luvy.Array(1, 2, 3, 4)
 		TestRunner.assert_true(arr1 < arr2, "Array of length 3 should be considered less than array of length 4")
 	end,
 
 	test_less_equal = function()
-		local arr1 = LuvyArray(1, 2, 3)
-		local arr2 = LuvyArray(1, 2, 3)
-		local arr3 = LuvyArray(1, 2, 3, 4)
+		local arr1 = Luvy.Array(1, 2, 3)
+		local arr2 = Luvy.Array(1, 2, 3)
+		local arr3 = Luvy.Array(1, 2, 3, 4)
 		TestRunner.assert_true(arr1 <= arr2, "Arrays of equal length 3 should satisfy less than or equal")
 		TestRunner.assert_true(arr1 <= arr3, "Array of length 3 should be less than or equal to array of length 4")
 	end,
 
 	test_greater_than = function()
-		local arr1 = LuvyArray(1, 2, 3, 4)
-		local arr2 = LuvyArray(1, 2, 3)
+		local arr1 = Luvy.Array(1, 2, 3, 4)
+		local arr2 = Luvy.Array(1, 2, 3)
 		TestRunner.assert_true(arr1 > arr2, "Array of length 4 should be considered greater than array of length 3")
 	end,
 
 	test_greater_equal = function()
-		local arr1 = LuvyArray(1, 2, 3)
-		local arr2 = LuvyArray(1, 2, 3)
-		local arr3 = LuvyArray(1, 2, 3, 4)
+		local arr1 = Luvy.Array(1, 2, 3)
+		local arr2 = Luvy.Array(1, 2, 3)
+		local arr3 = Luvy.Array(1, 2, 3, 4)
 		TestRunner.assert_true(arr1 >= arr2, "Arrays of equal length 3 should satisfy greater than or equal")
 		TestRunner.assert_true(arr3 >= arr1, "Array of length 4 should be greater than or equal to array of length 3")
 		TestRunner.assert_false(
@@ -98,7 +98,7 @@ local tests = {
 	end,
 
 	test_unary_minus = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		local result = -arr
 		TestRunner.assert_equal(
 			tostring(result),
@@ -108,8 +108,8 @@ local tests = {
 	end,
 
 	test_concatenation = function()
-		local arr1 = LuvyArray(1, 2, 3)
-		local arr2 = LuvyArray(4, 5, 6)
+		local arr1 = Luvy.Array(1, 2, 3)
+		local arr2 = Luvy.Array(4, 5, 6)
 		local result1 = arr1 .. arr2
 		TestRunner.assert_equal(
 			tostring(result1),
@@ -126,7 +126,7 @@ local tests = {
 	end,
 
 	test_indexing = function()
-		local arr = LuvyArray(10, 20, 30, 40)
+		local arr = Luvy.Array(10, 20, 30, 40)
 		TestRunner.assert_equal(arr[1], 10, "Positive index [1] should return first element (10)")
 		TestRunner.assert_equal(arr[4], 40, "Positive index [4] should return last element (40)")
 		TestRunner.assert_equal(arr[-1], 40, "Negative index [-1] should return last element (40)")
@@ -134,13 +134,13 @@ local tests = {
 	end,
 
 	test_length = function()
-		local arr = LuvyArray(10, 20, 30, 40)
+		local arr = Luvy.Array(10, 20, 30, 40)
 		TestRunner.assert_equal(arr:length(), 4, "Length method should return correct count of elements (4)")
 		TestRunner.assert_equal(#arr, 4, "Lua length operator (#) should return correct count of elements (4)")
 	end,
 
 	test_push_pop = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		arr:push(4)
 		TestRunner.assert_equal(arr:length(), 4, "Push should increase array length from 3 to 4")
 		TestRunner.assert_equal(arr[4], 4, "Push(4) should add element 4 at the end of array")
@@ -151,7 +151,7 @@ local tests = {
 	end,
 
 	test_shift_unshift = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		arr:unshift(0)
 		TestRunner.assert_equal(arr[1], 0, "Unshift(0) should add element 0 at the beginning")
 		TestRunner.assert_equal(arr:length(), 4, "Unshift should increase array length from 3 to 4")
@@ -162,19 +162,19 @@ local tests = {
 	end,
 
 	test_at_method = function()
-		local arr = LuvyArray(10, 20, 30, 40)
+		local arr = Luvy.Array(10, 20, 30, 40)
 		TestRunner.assert_equal(arr:at(1), 10, "at(1) should return first element (10)")
 		TestRunner.assert_equal(arr:at(-1), 40, "at(-1) should return last element (40)")
 	end,
 
 	test_first_last = function()
-		local arr = LuvyArray(10, 20, 30)
+		local arr = Luvy.Array(10, 20, 30)
 		TestRunner.assert_equal(arr:first(), 10, "first() should return the first element (10)")
 		TestRunner.assert_equal(arr:last(), 30, "last() should return the last element (30)")
 	end,
 
 	test_map = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		local doubled = arr:map(function(v)
 			return v * 2
 		end)
@@ -183,7 +183,7 @@ local tests = {
 	end,
 
 	test_map_destructive = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		arr:map_(function(v)
 			return v * 2
 		end)
@@ -195,7 +195,7 @@ local tests = {
 	end,
 
 	test_select = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5)
+		local arr = Luvy.Array(1, 2, 3, 4, 5)
 		local evens = arr:select(function(v)
 			return v % 2 == 0
 		end)
@@ -208,7 +208,7 @@ local tests = {
 	end,
 
 	test_select_destructive = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5)
+		local arr = Luvy.Array(1, 2, 3, 4, 5)
 		arr:select_(function(v)
 			return v % 2 == 0
 		end)
@@ -220,7 +220,7 @@ local tests = {
 	end,
 
 	test_reject = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5)
+		local arr = Luvy.Array(1, 2, 3, 4, 5)
 		local odds = arr:reject(function(v)
 			return v % 2 == 0
 		end)
@@ -233,7 +233,7 @@ local tests = {
 	end,
 
 	test_reject_destructive = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5)
+		local arr = Luvy.Array(1, 2, 3, 4, 5)
 		arr:reject_(function(v)
 			return v % 2 == 0
 		end)
@@ -245,7 +245,7 @@ local tests = {
 	end,
 
 	test_reduce = function()
-		local arr = LuvyArray(1, 2, 3, 4)
+		local arr = Luvy.Array(1, 2, 3, 4)
 		local sum = arr:reduce(0, function(acc, v)
 			return acc + v
 		end)
@@ -253,34 +253,34 @@ local tests = {
 	end,
 
 	test_join = function()
-		local arr = LuvyArray("a", "b", "c")
+		local arr = Luvy.Array("a", "b", "c")
 		TestRunner.assert_equal(arr:join(","), "a,b,c", "join(',') should concatenate elements with comma separator")
 		TestRunner.assert_equal(arr:join(" "), "a b c", "join(' ') should concatenate elements with space separator")
 	end,
 
 	test_include = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		TestRunner.assert_true(arr:include(2), "include(2) should return true for element present in array")
 		TestRunner.assert_false(arr:include(4), "include(4) should return false for element not in array")
 	end,
 
 	test_clear = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		arr:clear()
 		TestRunner.assert_equal(arr:length(), 0, "clear() should remove all elements resulting in empty array")
 	end,
 
 	test_empty = function()
-		local arr1 = LuvyArray()
-		local arr2 = LuvyArray(1, 2, 3)
+		local arr1 = Luvy.Array()
+		local arr2 = Luvy.Array(1, 2, 3)
 
 		TestRunner.assert_true(arr1:empty(), "empty() should return true for array with no elements")
 		TestRunner.assert_false(arr2:empty(), "empty() should return false for array with elements")
 	end,
 
 	test_all = function()
-		local arr1 = LuvyArray(2, 4, 6)
-		local arr2 = LuvyArray(1, 2, 3)
+		local arr1 = Luvy.Array(2, 4, 6)
+		local arr2 = Luvy.Array(1, 2, 3)
 
 		TestRunner.assert_true(
 			arr1:all(function(v)
@@ -297,8 +297,8 @@ local tests = {
 	end,
 
 	test_any = function()
-		local arr1 = LuvyArray(1, 3, 5)
-		local arr2 = LuvyArray(1, 2, 3)
+		local arr1 = Luvy.Array(1, 3, 5)
+		local arr2 = Luvy.Array(1, 2, 3)
 
 		TestRunner.assert_false(
 			arr1:any(function(v)
@@ -315,13 +315,13 @@ local tests = {
 	end,
 
 	test_index_of = function()
-		local arr = LuvyArray(10, 20, 30, 20)
+		local arr = Luvy.Array(10, 20, 30, 20)
 		TestRunner.assert_equal(arr:index_of(20), 2, "index_of(20) should return first occurrence index (2)")
 		TestRunner.assert_nil(arr:index_of(40), "index_of(40) should return nil for non-existent element")
 	end,
 
 	test_count = function()
-		local arr = LuvyArray(1, 2, 2, 3, 2)
+		local arr = Luvy.Array(1, 2, 2, 3, 2)
 		TestRunner.assert_equal(arr:count(), 5, "count() without predicate should return total number of elements (5)")
 		TestRunner.assert_equal(
 			arr:count(function(v)
@@ -333,7 +333,7 @@ local tests = {
 	end,
 
 	test_uniq = function()
-		local arr = LuvyArray(1, 2, 2, 3, 3, 4)
+		local arr = Luvy.Array(1, 2, 2, 3, 3, 4)
 		local unique = arr:uniq()
 		TestRunner.assert_equal(
 			tostring(unique),
@@ -344,7 +344,7 @@ local tests = {
 	end,
 
 	test_uniq_destructive = function()
-		local arr = LuvyArray(1, 2, 2, 3, 3, 4)
+		local arr = Luvy.Array(1, 2, 2, 3, 3, 4)
 		arr:uniq_()
 		TestRunner.assert_equal(
 			tostring(arr),
@@ -354,7 +354,7 @@ local tests = {
 	end,
 
 	test__flatten = function()
-		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
+		local arr = Luvy.Array(1, Luvy.Array(2, 3), Luvy.Array(4, Luvy.Array(5, 6)))
 		local flattened = arr:flatten()
 		TestRunner.assert_equal(
 			tostring(flattened),
@@ -365,7 +365,7 @@ local tests = {
 	end,
 
 	test_flatten_destructive = function()
-		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
+		local arr = Luvy.Array(1, Luvy.Array(2, 3), Luvy.Array(4, Luvy.Array(5, 6)))
 		arr:flatten_()
 		TestRunner.assert_equal(
 			tostring(arr),
@@ -375,7 +375,7 @@ local tests = {
 	end,
 
 	test_deep_flatten = function()
-		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
+		local arr = Luvy.Array(1, Luvy.Array(2, 3), Luvy.Array(4, Luvy.Array(5, 6)))
 		local flattened = arr:deep_flatten()
 		TestRunner.assert_equal(
 			tostring(flattened),
@@ -386,7 +386,7 @@ local tests = {
 	end,
 
 	test_deep_flatten_destructive = function()
-		local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
+		local arr = Luvy.Array(1, Luvy.Array(2, 3), Luvy.Array(4, Luvy.Array(5, 6)))
 		arr:deep_flatten_()
 		TestRunner.assert_equal(
 			tostring(arr),
@@ -396,7 +396,7 @@ local tests = {
 	end,
 
 	test_reverse = function()
-		local arr = LuvyArray(1, 2, 3, 4)
+		local arr = Luvy.Array(1, 2, 3, 4)
 		local reversed = arr:reverse()
 		TestRunner.assert_equal(
 			tostring(reversed),
@@ -407,7 +407,7 @@ local tests = {
 	end,
 
 	test_reverse_destructive = function()
-		local arr = LuvyArray(1, 2, 3, 4)
+		local arr = Luvy.Array(1, 2, 3, 4)
 		arr:reverse_()
 		TestRunner.assert_equal(
 			tostring(arr),
@@ -417,7 +417,7 @@ local tests = {
 	end,
 
 	test_sort = function()
-		local arr = LuvyArray(3, 1, 4, 2)
+		local arr = Luvy.Array(3, 1, 4, 2)
 		local sorted = arr:sort()
 		TestRunner.assert_equal(
 			tostring(sorted),
@@ -428,7 +428,7 @@ local tests = {
 	end,
 
 	test_sort_with_comparison = function()
-		local arr = LuvyArray(3, 1, 4, 2)
+		local arr = Luvy.Array(3, 1, 4, 2)
 		local sorted = arr:sort(function(a, b)
 			return a > b
 		end)
@@ -440,7 +440,7 @@ local tests = {
 	end,
 
 	test_sort_destructive = function()
-		local arr = LuvyArray(3, 1, 4, 2)
+		local arr = Luvy.Array(3, 1, 4, 2)
 		arr:sort_()
 		TestRunner.assert_equal(
 			tostring(arr),
@@ -450,8 +450,8 @@ local tests = {
 	end,
 
 	test_intersection = function()
-		local arr1 = LuvyArray(1, 2, 3, 4)
-		local arr2 = LuvyArray(3, 4, 5, 6)
+		local arr1 = Luvy.Array(1, 2, 3, 4)
+		local arr2 = Luvy.Array(3, 4, 5, 6)
 		local intersection = arr1:intersection(arr2)
 		TestRunner.assert_equal(
 			tostring(intersection),
@@ -461,8 +461,8 @@ local tests = {
 	end,
 
 	test_union = function()
-		local arr1 = LuvyArray(1, 2, 3)
-		local arr2 = LuvyArray(3, 4, 5)
+		local arr1 = Luvy.Array(1, 2, 3)
+		local arr2 = Luvy.Array(3, 4, 5)
 		local union = arr1:union(arr2)
 		TestRunner.assert_equal(
 			tostring(union),
@@ -472,8 +472,8 @@ local tests = {
 	end,
 
 	test_difference = function()
-		local arr1 = LuvyArray(1, 2, 3, 4)
-		local arr2 = LuvyArray(3, 4, 5, 6)
+		local arr1 = Luvy.Array(1, 2, 3, 4)
+		local arr2 = Luvy.Array(3, 4, 5, 6)
 		local difference = arr1:difference(arr2)
 		TestRunner.assert_equal(
 			tostring(difference),
@@ -483,7 +483,7 @@ local tests = {
 	end,
 
 	test_slice = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5)
+		local arr = Luvy.Array(1, 2, 3, 4, 5)
 		local sliced = arr:slice(2, 4)
 		TestRunner.assert_equal(
 			tostring(sliced),
@@ -493,13 +493,13 @@ local tests = {
 	end,
 
 	test_take = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5)
+		local arr = Luvy.Array(1, 2, 3, 4, 5)
 		local taken = arr:take(3)
 		TestRunner.assert_equal(tostring(taken), "{1, 2, 3}", "take(3) should return first 3 elements of array")
 	end,
 
 	test_drop = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5)
+		local arr = Luvy.Array(1, 2, 3, 4, 5)
 		local dropped = arr:drop(2)
 		TestRunner.assert_equal(
 			tostring(dropped),
@@ -509,7 +509,7 @@ local tests = {
 	end,
 
 	test_chunk = function()
-		local arr = LuvyArray(1, 2, 3, 4, 5, 6)
+		local arr = Luvy.Array(1, 2, 3, 4, 5, 6)
 		local chunked = arr:chunk(2)
 		TestRunner.assert_equal(
 			tostring(chunked),
@@ -517,7 +517,7 @@ local tests = {
 			"chunk(2) should group elements into arrays of size 2"
 		)
 
-		local arr2 = LuvyArray(1, 2, 3, 4, 5)
+		local arr2 = Luvy.Array(1, 2, 3, 4, 5)
 		local chunked2 = arr2:chunk(2)
 		TestRunner.assert_equal(
 			tostring(chunked2),
@@ -525,7 +525,7 @@ local tests = {
 			"chunk(2) with uneven array should create a smaller last chunk"
 		)
 
-		local arr3 = LuvyArray(1, 2, 3)
+		local arr3 = Luvy.Array(1, 2, 3)
 		local chunked3 = arr3:chunk(5)
 		TestRunner.assert_equal(
 			tostring(chunked3),
@@ -533,11 +533,11 @@ local tests = {
 			"chunk(5) on smaller array should return single chunk with all elements"
 		)
 
-		local arr4 = LuvyArray(1, 2, 3)
+		local arr4 = Luvy.Array(1, 2, 3)
 		local chunked4 = arr4:chunk(1)
 		TestRunner.assert_equal(tostring(chunked4), "{{1}, {2}, {3}}", "chunk(1) should create single-element chunks")
 
-		local arr5 = LuvyArray(1, 2, 3, 5, 6, 9, 10)
+		local arr5 = Luvy.Array(1, 2, 3, 5, 6, 9, 10)
 		local chunked5 = arr5:chunk(function(last, current)
 			return math.abs(last - current) < 2
 		end)
@@ -547,13 +547,13 @@ local tests = {
 			"predicate-based chunk should group by custom condition"
 		)
 
-		local arr6 = LuvyArray()
+		local arr6 = Luvy.Array()
 		local chunked6 = arr6:chunk(2)
 		TestRunner.assert_equal(tostring(chunked6), "{}", "chunk on empty array should return empty array")
 	end,
 
 	test_transpose = function()
-		local arr = LuvyArray(LuvyArray(1, 2, 3), LuvyArray(4, 5, 6))
+		local arr = Luvy.Array(Luvy.Array(1, 2, 3), Luvy.Array(4, 5, 6))
 		local transposed = arr:transpose()
 		TestRunner.assert_equal(
 			tostring(transposed),
@@ -564,7 +564,7 @@ local tests = {
 	end,
 
 	test_transpose_destructive = function()
-		local arr = LuvyArray(LuvyArray(1, 2, 3), LuvyArray(4, 5, 6))
+		local arr = Luvy.Array(Luvy.Array(1, 2, 3), Luvy.Array(4, 5, 6))
 		arr:transpose_()
 		TestRunner.assert_equal(
 			tostring(arr),
@@ -574,33 +574,33 @@ local tests = {
 	end,
 
 	test_zip = function()
-		local a = LuvyArray(4, 5, 6)
-		local b = LuvyArray(7, 8, 9)
-		local zipped = LuvyArray(1, 2, 3):zip(a, b)
+		local a = Luvy.Array(4, 5, 6)
+		local b = Luvy.Array(7, 8, 9)
+		local zipped = Luvy.Array(1, 2, 3):zip(a, b)
 		TestRunner.assert_equal(
 			tostring(zipped),
 			"{{1, 4, 7}, {2, 5, 8}, {3, 6, 9}}",
 			"Basic zip with equal length arrays"
 		)
 
-		local zipped2 = LuvyArray(1, 2):zip(a, b)
+		local zipped2 = Luvy.Array(1, 2):zip(a, b)
 		TestRunner.assert_equal(tostring(zipped2), "{{1, 4, 7}, {2, 5, 8}}", "Zip with shorter initial array")
 
-		local c = LuvyArray(8)
-		local zipped3 = a:zip(LuvyArray(1, 2), c)
+		local c = Luvy.Array(8)
+		local zipped3 = a:zip(Luvy.Array(1, 2), c)
 		TestRunner.assert_equal(tostring(zipped3), "{{4, 1, 8}, {5, 2}, {6}}", "Zip with arrays of different lengths")
 
-		local zipped4 = LuvyArray(1, 2, 3):zip()
+		local zipped4 = Luvy.Array(1, 2, 3):zip()
 		TestRunner.assert_equal(tostring(zipped4), "{{1}, {2}, {3}}", "Zip with no additional arrays")
 
-		local empty1 = LuvyArray()
-		local empty2 = LuvyArray()
+		local empty1 = Luvy.Array()
+		local empty2 = Luvy.Array()
 		local zipped5 = empty1:zip(empty2)
 		TestRunner.assert_equal(tostring(zipped5), "{}", "Zip with empty arrays")
 	end,
 
 	test_method_chaining = function()
-		local arr = LuvyArray(1, 2, 3)
+		local arr = Luvy.Array(1, 2, 3)
 		local result = arr:push(4)
 			:push(5)
 			:map_(function(x)
@@ -616,7 +616,7 @@ local tests = {
 	end,
 
 	test_pop_shift_chaining = function()
-		local arr = LuvyArray(1, 2, 3, 4)
+		local arr = Luvy.Array(1, 2, 3, 4)
 		local last, chainArr = arr:pop()
 		TestRunner.assert_equal(last, 4, "Pop should return the last element")
 		TestRunner.assert_true(arr == chainArr, "Pop should return the array for chaining")
