@@ -478,11 +478,13 @@ end
 function LuvyArray:transpose()
 	local columns = #self
 	local rows = #self:first()
-	for _, row in ipairs(self.items) do
-		if #row ~= rows then
-			error(string.format("element size differs (%d should be %d)", #row, rows))
+
+	self:each(function(row)
+		if getmetatable(row) ~= LuvyArray then
+			error("Can only transpose nested LuvyArrays")
 		end
-	end
+	end)
+
 	local result = LuvyArray()
 	for i = 1, rows do
 		local arr = LuvyArray()
@@ -499,7 +501,19 @@ function LuvyArray:transpose_()
 	return self
 end
 
-function LuvyArray:zip(...) end
+function LuvyArray:zip(...)
+	local args = { ... }
+
+	if #args == 0 then
+		return self:map(function(v)
+			return LuvyArray(v)
+		end)
+	end
+
+	local to_transpose = LuvyArray(self, table.unpack(args))
+
+	return to_transpose:transpose()
+end
 
 setmetatable(LuvyArray, {
 	__call = function(self, ...)

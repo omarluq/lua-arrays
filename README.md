@@ -318,7 +318,7 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
 - `flatten()`: Remove nested array structures one level deep (non-destructive).
 
   ```lua
-  local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
+  local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
   local flattened = arr:flatten()
   print(flattened)  -- {1, 2, 3, 4, {5, 6}}
   ```
@@ -326,7 +326,7 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
 - `flatten_()`: Remove nested array structures one level deep (destructive).
 
   ```lua
-  local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
+  local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
   arr:flatten_()
   print(arr)  -- {1, 2, 3, 4, {5, 6}}
   ```
@@ -334,7 +334,7 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
 - `deep_flatten()`: Recursively flattens all nested arrays (non-destructive).
 
   ```lua
-  local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
+  local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
   local flattened = arr:flatten()
   print(flattened)  -- {1, 2, 3, 4, 5, 6}
   ```
@@ -342,7 +342,7 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
 - `deep_flatten_()`: Recursively flattens all nested arrays (destructive).
 
   ```lua
-  local arr = LuvyArray(1, {2, 3}, {4, {5, 6}})
+  local arr = LuvyArray(1, LuvyArray(2, 3), LuvyArray(4, LuvyArray(5, 6)))
   arr:flatten_()
   print(arr)  -- {1, 2, 3, 4, 5, 6}
   ```
@@ -438,20 +438,32 @@ Lightweight, functional array for Lua with a Ruby-inspired flavor.
   print(chunked)  -- {{1, 2}, {3, 4}, {5, 6}}
   ```
 
-- `transpose()`: Assumes that self is an array of arrays of the same size and convert rows to columns (non-destructive).
+- `transpose()`: Assumes that self is an array of arrays and convert rows to columns (non-destructive).
 
   ```lua
-  local arr = LuvyArray({1, 2, 3}, {4, 5, 6})
+  local arr = LuvyArray(LuvyArray(1, 2, 3), LuvyArray(4, 5, 6))
   local transposed = arr:transpose()
   print(transposed)  -- {{1, 4}, {2, 5}, {3, 6}}
   ```
 
-- `transpose_()`: Assumes that self is an array of arrays of the same size and convert rows to columns (destructive).
+- `transpose_()`: Assumes that self is an array of arrays and convert rows to columns (destructive).
 
   ```lua
-  local arr = LuvyArray({1, 2, 3}, {4, 5, 6})
+  local arr = LuvyArray(LuvyArray(1, 2, 3), LuvyArray(4, 5, 6))
   arr:transpose_()
   print(arr)  -- {{1, 4}, {2, 5}, {3, 6}}
+  ```
+
+- `zip()`: Merges elements by pairing columns from the current array with columns from other arrays.
+
+  ```lua
+  local a = LuvyArray(4, 5, 6)
+  local b = LuvyArray(7, 8, 9)
+  local zipped = LuvyArray(1, 2, 3):zip(a, b)
+  print(zipped)  -- {{1, 4, 7}, {2, 5, 8}, {3, 6, 9}}
+  local c = LuvyArray(8)
+  local zipped2 = a:zip(LuvyArray(1, 2), c)
+  print(zipped2) -- {{4, 1, 8}, {5, 2, nil}, {6}}
   ```
 
 ### Destructive vs Non-Destructive Methods

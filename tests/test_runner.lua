@@ -5,7 +5,6 @@ local colors = {
 	reset = "\27[0m",
 }
 
--- Add counters for assertions
 local assert_counts = {
 	total = 0,
 	passed = 0,
@@ -87,7 +86,6 @@ function TestRunner.assert_not_nil(value, message)
 end
 
 function TestRunner.run_tests(tests)
-	-- Reset assertion counters
 	assert_counts.total = 0
 	assert_counts.passed = 0
 	assert_counts.failed = 0

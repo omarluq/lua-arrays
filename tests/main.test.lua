@@ -553,7 +553,7 @@ local tests = {
 	end,
 
 	test_transpose = function()
-		local arr = LuvyArray({ 1, 2, 3 }, { 4, 5, 6 })
+		local arr = LuvyArray(LuvyArray(1, 2, 3), LuvyArray(4, 5, 6))
 		local transposed = arr:transpose()
 		TestRunner.assert_equal(
 			tostring(transposed),
@@ -564,13 +564,38 @@ local tests = {
 	end,
 
 	test_transpose_destructive = function()
-		local arr = LuvyArray({ 1, 2, 3 }, { 4, 5, 6 })
+		local arr = LuvyArray(LuvyArray(1, 2, 3), LuvyArray(4, 5, 6))
 		arr:transpose_()
 		TestRunner.assert_equal(
 			tostring(arr),
 			"{{1, 4}, {2, 5}, {3, 6}}",
 			"transpose_() should modify original array by converting rows to columns"
 		)
+	end,
+	test_zip = function()
+		local a = LuvyArray(4, 5, 6)
+		local b = LuvyArray(7, 8, 9)
+		local zipped = LuvyArray(1, 2, 3):zip(a, b)
+		TestRunner.assert_equal(
+			tostring(zipped),
+			"{{1, 4, 7}, {2, 5, 8}, {3, 6, 9}}",
+			"Basic zip with equal length arrays"
+		)
+
+		local zipped2 = LuvyArray(1, 2):zip(a, b)
+		TestRunner.assert_equal(tostring(zipped2), "{{1, 4, 7}, {2, 5, 8}}", "Zip with shorter initial array")
+
+		local c = LuvyArray(8)
+		local zipped3 = a:zip(LuvyArray(1, 2), c)
+		TestRunner.assert_equal(tostring(zipped3), "{{4, 1, 8}, {5, 2}, {6}}", "Zip with arrays of different lengths")
+
+		local zipped4 = LuvyArray(1, 2, 3):zip()
+		TestRunner.assert_equal(tostring(zipped4), "{{1}, {2}, {3}}", "Zip with no additional arrays")
+
+		local empty1 = LuvyArray()
+		local empty2 = LuvyArray()
+		local zipped5 = empty1:zip(empty2)
+		TestRunner.assert_equal(tostring(zipped5), "{}", "Zip with empty arrays")
 	end,
 }
 
