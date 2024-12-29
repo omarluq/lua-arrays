@@ -172,8 +172,8 @@ function Array:last()
 end
 
 function Array:each(predicate)
-	for _, v in ipairs(self.items) do
-		predicate(v)
+	for i, v in ipairs(self.items) do
+		predicate(v, i)
 	end
 	return self
 end
@@ -517,6 +517,13 @@ function Array:zip(...)
 	local to_transpose = Array(self, table.unpack(args))
 
 	return to_transpose:transpose()
+end
+
+function Array:rand()
+	if self:empty() then
+		return nil
+	end
+	return self[math.random(1, self:length())]
 end
 
 setmetatable(Array, {
